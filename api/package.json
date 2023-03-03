@@ -18,8 +18,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e3e.json",
-    "build:swc": "npx swc --out-dir dist -w src",
-    "start:swc": "nodemon dist/main"
+    "build:swc": "npx swc --out-dir dist src",
+    "build:swc:watch": "npx swc --out-dir dist -w src",
+    "start:swc": "node dist/main",
+    "start:swc:watch": "nodemon dist/main"
   },
   "dependencies": {
     "@nestjs-modules/ioredis": "^1.0.1",
