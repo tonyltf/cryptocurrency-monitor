@@ -69,15 +69,16 @@ export class TickerService {
   async fetchPrices(pairs: string[]): Promise<ITickerReponse[]> {
     try {
       const apiPath = `${this.apiPath}?symbols=[${pairs
-        .map((pair) => `"${pair}"]`)
-        .join(',')}`;
+        .map((pair) => `"${pair}"`)
+        .join(',')}]`;
+      this.logger.log({ apiPath });
       const response = (
         await this.httpService.axiosRef.get<ITickerReponse[]>(apiPath)
       ).data;
+      this.logger.log({ response });
       return response;
     } catch (e) {
-      const error = <AxiosError>e;
-      this.logger.error(error);
+      this.logger.error(e);
     }
   }
 
@@ -91,7 +92,7 @@ export class TickerService {
         (pair) => !cachedResponse.map(({ symbol }) => symbol).includes(pair),
       );
 
-      const fetchResponse = pairsToFetch.length
+      const fetchResponse = pairsToFetch?.length
         ? await this.fetchPrices(pairsToFetch)
         : [];
       return this.transform([...cachedResponse, ...fetchResponse]);
