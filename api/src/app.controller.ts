@@ -1,4 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { TickerService } from './ticker/ticker.service';
 
@@ -19,6 +20,7 @@ export class AppController {
     return this.tickerService.getCurrencyList();
   }
 
+  @ApiQuery({ name: 'pairs', isArray: true })
   @Get('/price')
   async getPrices(@Query('pairs') pairs: string | string[]): Promise<any> {
     if (typeof pairs === 'string') {
