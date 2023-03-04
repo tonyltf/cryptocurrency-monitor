@@ -5,7 +5,7 @@ import PriceCard from '../lib/components/PriceCard';
 
 const CardContiner = styled.div``;
 
-export default function Web(props: any) {
+export default function Web(props: { currencyList: { [key: string]: string; } }) {
   const { currencyList = {} } = props;
   return (
     <div>
