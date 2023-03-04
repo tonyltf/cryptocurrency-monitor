@@ -1,5 +1,5 @@
 import { Card } from './Card';
-import color from '@/lib/modules/color.module.css';
+import color from '../lib/modules/color.module.css';
 
 describe('Card', () => {
   it('should render a Card component', () => {

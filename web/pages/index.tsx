@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import styled from 'styled-components';
-import styles from '@/lib/modules/flex.module.css';
-import PriceCard from '@/lib/components/PriceCard';
+import styles from '../lib/modules/flex.module.css';
+import PriceCard from '../lib/components/PriceCard';
 
 const CardContiner = styled.div``;
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Card } from './Card';
-import { TPriceCard, getPrice } from '@/lib/ticker';
-import width from '@/lib/modules/size.module.css';
-import color from '@/lib/modules/color.module.css';
+import { TPriceCard, getPrice } from '../ticker';
+import width from '../modules/size.module.css';
+import color from '../modules/color.module.css';
 
 export default function PriceCard({
   name,
