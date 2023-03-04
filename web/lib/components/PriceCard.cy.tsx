@@ -2,7 +2,9 @@ import PriceCard from './PriceCard';
 
 describe('PriceCard.cy.tsx', () => {
   it('should render and display expected content on BTC price', () => {
-    cy.intercept('GET', '/price?pairs=BTCUSDT', { fixture: 'priceBTCUSDT.json' });
+    cy.intercept('GET', '/price?pairs=BTCUSDT', {
+      fixture: 'priceBTCUSDT.json',
+    });
     cy.mount(<PriceCard name="Bitcoin" pair="BTCUSDT" />);
     cy.get('[data-cy=card]').should('have.length.at.least', 1);
     cy.get('[data-cy=cardTitle]').should('contain.text', 'Bitcoin');
@@ -16,7 +18,9 @@ describe('PriceCard.cy.tsx', () => {
   });
 
   it('should render and display expected content on ETH price', () => {
-    cy.intercept('GET', '/price?pairs=ETHUSDT', { fixture: 'priceETHUSDT.json' });
+    cy.intercept('GET', '/price?pairs=ETHUSDT', {
+      fixture: 'priceETHUSDT.json',
+    });
     cy.mount(<PriceCard name="Ether" pair="ETHUSDT" />);
     cy.get('[data-cy=card]').should('have.length.at.least', 1);
     cy.get('[data-cy=cardTitle]').should('contain.text', 'Ether');

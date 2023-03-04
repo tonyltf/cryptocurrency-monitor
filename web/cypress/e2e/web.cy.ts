@@ -36,8 +36,12 @@ describe('Web', () => {
         Ether: 'ETHUSDT',
       },
     });
-    cy.intercept('GET', '/price?pair=BTCUSDT', { fixture: 'priceBTCUSDT.json' });
-    cy.intercept('GET', '/price?pair=ETHUSDT', { fixture: 'priceETHUSDT.json' });
+    cy.intercept('GET', '/price?pair=BTCUSDT', {
+      fixture: 'priceBTCUSDT.json',
+    });
+    cy.intercept('GET', '/price?pair=ETHUSDT', {
+      fixture: 'priceETHUSDT.json',
+    });
     cy.visit('http://localhost:3000/');
     cy.get('[data-cy=price]').should('not.be.empty');
   });

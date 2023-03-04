@@ -25,10 +25,7 @@ export const Card = ({
   items: { label: string; value: string; className?: string }[];
 }) => {
   return (
-    <CardWrapper
-      className={`${flex.child} ${card.cardWrapper}`}
-      data-cy="card"
-    >
+    <CardWrapper className={`${flex.child} ${card.cardWrapper}`} data-cy="card">
       <CardTitle data-cy="cardTitle" className={card.cardTitle}>
         {title}
       </CardTitle>
