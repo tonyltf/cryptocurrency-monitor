@@ -1,7 +1,7 @@
-import * as React from "react";
-import styled from "styled-components";
-import styles from "@/lib/modules/flex.module.css";
-import card from "@/lib/modules/card.module.css";
+import * as React from 'react';
+import styled from 'styled-components';
+import styles from '@/lib/modules/flex.module.css';
+import card from '@/lib/modules/card.module.css';
 
 const CardWrapper = styled.div``;
 const CardTitle = styled.div``;

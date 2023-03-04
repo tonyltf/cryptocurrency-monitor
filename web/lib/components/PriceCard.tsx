@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Card } from "./Card";
-import { TPriceCard, getPrice } from "@/lib/ticker";
-import width from "@/lib/modules/size.module.css";
-import color from "@/lib/modules/color.module.css";
+import { useEffect, useState } from 'react';
+import { Card } from './Card';
+import { TPriceCard, getPrice } from '@/lib/ticker';
+import width from '@/lib/modules/size.module.css';
+import color from '@/lib/modules/color.module.css';
 
 export default function PriceCard({
   name,
@@ -33,17 +33,17 @@ export default function PriceCard({
       <Card
         data-cy="priceCard"
         key={pair}
-        title={name || ""}
-        subtitle={`$${priceInfo?.price || ""}`}
+        title={name || ''}
+        subtitle={`$${priceInfo?.price || ''}`}
         items={[
           {
-            label: "Volume",
-            value: priceInfo?.volume?.toString() || "-",
+            label: 'Volume',
+            value: priceInfo?.volume?.toString() || '-',
             className: color.grey,
           },
           {
-            label: "Change",
-            value: priceInfo?.change?.toString() || "-",
+            label: 'Change',
+            value: priceInfo?.change?.toString() || '-',
             className:
               (priceInfo?.change || 0) < 0
                 ? color.red
