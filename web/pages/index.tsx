@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import styled from 'styled-components';
-import styles from '../lib/modules/flex.module.css';
+import flex from '../lib/modules/flex.module.css';
 import PriceCard from '../lib/components/PriceCard';
 
 const CardContiner = styled.div``;
@@ -11,7 +11,7 @@ export default function Web(props: any) {
     <div>
       <h1>Cryptocurrency Realtime price</h1>
       {currencyList && (
-        <CardContiner className={(styles as any).parent} data-cy="currencyList">
+        <CardContiner className={flex.parent} data-cy="currencyList">
           {Object.keys(currencyList).map((key) => (
             <Suspense key={key} fallback={<p>Loading price...</p>}>
               <PriceCard name={key} pair={currencyList[key]} />
@@ -30,6 +30,7 @@ export async function getServerSideProps() {
     const currencyList = await res.json();
     return { props: { currencyList } };
   } catch (e) {
+    console.log('Get currency list error');
     console.log(e);
   }
   return { props: {} };

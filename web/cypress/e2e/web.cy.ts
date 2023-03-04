@@ -1,6 +1,16 @@
 describe('Web', () => {
   beforeEach(() => {
     cy.task('clearNock');
+    cy.task('nock', {
+      hostname: 'http://localhost:8000',
+      method: 'GET',
+      path: '/list',
+      statusCode: 200,
+      body: {
+        Bitcoin: 'BTCUSDT',
+        Ether: 'ETHUSDT',
+      },
+    }); 
   });
 
   it('should show app with title', () => {
@@ -9,16 +19,6 @@ describe('Web', () => {
   });
 
   it('should show app with available currency list', () => {
-    cy.task('nock', {
-      hostname: 'http://localhost:8000',
-      method: 'GET',
-      path: '/list',
-      statusCode: 200,
-      body: {
-        Bitcoin: 'BTCUSDT',
-        Ether: 'ETHUSDT',
-      },
-    });
     cy.visit('http://localhost:3000/');
     cy.get('[data-cy=currencyList]')
       .children()
@@ -26,20 +26,10 @@ describe('Web', () => {
   });
 
   it('should show app with price listed', () => {
-    cy.task('nock', {
-      hostname: 'http://localhost:8000',
-      method: 'GET',
-      path: '/list',
-      statusCode: 200,
-      body: {
-        Bitcoin: 'BTCUSDT',
-        Ether: 'ETHUSDT',
-      },
-    });
-    cy.intercept('GET', '/price?pair=BTCUSDT', {
+    cy.intercept('GET', '/price?pairs=BTCUSDT', {
       fixture: 'priceBTCUSDT.json',
     });
-    cy.intercept('GET', '/price?pair=ETHUSDT', {
+    cy.intercept('GET', '/price?pairs=ETHUSDT', {
       fixture: 'priceETHUSDT.json',
     });
     cy.visit('http://localhost:3000/');

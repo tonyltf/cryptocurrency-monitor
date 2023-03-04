@@ -34,20 +34,6 @@ export default defineConfig({
         });
       });
 
-      const customApiServer = new http.Server(async (req, res) => {
-        return handleNextRequests(req, res);
-      });
-
-      await new Promise<void>((resolve, reject) => {
-        customApiServer.listen(8000, (err?: any) => {
-          if (err) {
-            return reject(err);
-          }
-          console.log('> Ready on http://localhost:8000');
-          resolve();
-        });
-      });
-
       // register handlers for cy.task command
       // https://on.cypress.io/task
       on('task', {
