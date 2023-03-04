@@ -1,5 +1,4 @@
 import { HttpService } from '@nestjs/axios';
-import { AxiosError } from 'axios';
 import { Injectable } from '@nestjs/common';
 import {
   ITickerReponse,

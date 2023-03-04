@@ -30,7 +30,7 @@ describe('TickerService', () => {
   });
 
   it('should trasform the response', async () => {
-    const response = await service.transform([
+    const response = service.transform([
       {
         symbol: 'BTCUSDT',
         priceChange: '-1078.45000000',
