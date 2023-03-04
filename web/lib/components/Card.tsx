@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import styles from '@/lib/modules/flex.module.css';
+import flex from '@/lib/modules/flex.module.css';
 import card from '@/lib/modules/card.module.css';
 
 const CardWrapper = styled.div``;
@@ -26,7 +26,7 @@ export const Card = ({
 }) => {
   return (
     <CardWrapper
-      className={`${styles.child} ${card.cardWrapper}`}
+      className={`${flex.child} ${card.cardWrapper}`}
       data-cy="card"
     >
       <CardTitle data-cy="cardTitle" className={card.cardTitle}>
@@ -35,10 +35,10 @@ export const Card = ({
       <CardSubtitle data-cy="cardSubtitle" className={card.cardSubtitle}>
         {subtitle}
       </CardSubtitle>
-      <ItemContainer className={styles.parent}>
+      <ItemContainer className={flex.parent}>
         {items?.map(({ label, value, className }) => {
           return (
-            <ItemWrapper key={label} className={styles.child}>
+            <ItemWrapper key={label} className={flex.child}>
               <ItemLabel>{label} :</ItemLabel>
               <ItemValue
                 data-cy={`cardItem${label}Value`}
