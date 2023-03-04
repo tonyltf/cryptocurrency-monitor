@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Card } from "./Card";
 import { TPriceCard, getPrice } from "@/lib/ticker";
-import width from '@/lib/modules/size.module.css';
-import color from '@/lib/modules/color.module.css';
+import width from "@/lib/modules/size.module.css";
+import color from "@/lib/modules/color.module.css";
 
 export default function PriceCard({
   name,
@@ -19,7 +19,7 @@ export default function PriceCard({
         setPriceInfo({
           name,
           pair,
-          ...priceInfo.find(p => p.symbol === pair),
+          ...priceInfo.find((p) => p.symbol === pair),
         });
       } catch (e) {
         console.error(e);
@@ -29,9 +29,7 @@ export default function PriceCard({
   }, [name, pair]);
 
   return (
-    <div 
-      className={width.twoFifty}
-    >
+    <div className={width.twoFifty}>
       <Card
         data-cy="priceCard"
         key={pair}
@@ -46,7 +44,7 @@ export default function PriceCard({
           {
             label: "Change",
             value: priceInfo?.change?.toString() || "-",
-            className: 
+            className:
               (priceInfo?.change || 0) < 0
                 ? color.red
                 : ((priceInfo?.change || 0) > 0 && color.green) || color.grey,

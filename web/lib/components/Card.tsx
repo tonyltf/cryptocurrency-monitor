@@ -29,8 +29,12 @@ export const Card = ({
       className={`${styles.child} ${card.cardWrapper}`}
       data-cy="card"
     >
-      <CardTitle data-cy="cardTitle" className={card.cardTitle}>{title}</CardTitle>
-      <CardSubtitle data-cy="cardSubtitle" className={card.cardSubtitle}>{subtitle}</CardSubtitle>
+      <CardTitle data-cy="cardTitle" className={card.cardTitle}>
+        {title}
+      </CardTitle>
+      <CardSubtitle data-cy="cardSubtitle" className={card.cardSubtitle}>
+        {subtitle}
+      </CardSubtitle>
       <ItemContainer className={styles.parent}>
         {items?.map(({ label, value, className }) => {
           return (
