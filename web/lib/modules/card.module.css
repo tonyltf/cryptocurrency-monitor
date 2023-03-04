@@ -1,0 +1,16 @@
+.cardWrapper {
+  border: 1px solid #aaa;
+  padding: 1em;
+}
+
+.cardTitle {
+  font-size: 2em;
+}
+
+.cardSubtitle {
+  color: orange;
+}
+
+.itemContainer {
+  display: flex;
+}

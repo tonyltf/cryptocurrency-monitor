@@ -1,36 +1,15 @@
 import * as React from "react";
 import styled from "styled-components";
-import styles from "./flex.module.css";
+import styles from "@/lib/modules/flex.module.css";
+import card from "@/lib/modules/card.module.css";
 
-const CardWrapper = styled.div<{ height?: number; width?: number }>`
-  border: 1px solid #aaa;
-  padding: 1em;
-  width: ${({ width }: { width?: number }) => (width ? width + "px" : "auto")};
-  max-width: ${({ width }: { width?: number }) =>
-    width ? width + "px" : "auto"};
-  height: ${({ height }: { height?: number }) =>
-    height ? height + "px" : "auto"};
-`;
-
-const CardTitle = styled.div`
-  font-size: 2em;
-`;
-
-const CardSubtitle = styled.div`
-  color: orange;
-`;
-
-const ItemContainer = styled.div`
-  display: flex;
-`;
-
+const CardWrapper = styled.div``;
+const CardTitle = styled.div``;
+const CardSubtitle = styled.div``;
+const ItemContainer = styled.div``;
 const ItemWrapper = styled.div``;
-
 const ItemLabel = styled.div``;
-
-const ItemValue = styled.div<{ color: string }>`
-  color: ${({ color }: { color: string }) => color};
-`;
+const ItemValue = styled.div``;
 
 export const Card = ({
   height,
@@ -43,25 +22,23 @@ export const Card = ({
   width?: number;
   title: string;
   subtitle: string;
-  items: { label: string; value: string; color?: string }[];
+  items: { label: string; value: string; className?: string }[];
 }) => {
   return (
     <CardWrapper
-      className={styles.child}
-      height={height}
-      width={width}
+      className={`${styles.child} ${card.cardWrapper}`}
       data-cy="card"
     >
-      <CardTitle data-cy="cardTitle">{title}</CardTitle>
-      <CardSubtitle data-cy="cardSubtitle">{subtitle}</CardSubtitle>
+      <CardTitle data-cy="cardTitle" className={card.cardTitle}>{title}</CardTitle>
+      <CardSubtitle data-cy="cardSubtitle" className={card.cardSubtitle}>{subtitle}</CardSubtitle>
       <ItemContainer className={styles.parent}>
-        {items?.map(({ label, value, color }) => {
+        {items?.map(({ label, value, className }) => {
           return (
             <ItemWrapper key={label} className={styles.child}>
               <ItemLabel>{label} :</ItemLabel>
               <ItemValue
                 data-cy={`cardItem${label}Value`}
-                color={color || "black"}
+                className={className}
               >
                 {value}
               </ItemValue>

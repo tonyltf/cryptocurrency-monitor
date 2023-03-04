@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Card } from "./Card";
-import { TPriceCard, getPrice } from "../ticker";
+import { TPriceCard, getPrice } from "@/lib/ticker";
+import width from '@/lib/modules/size.module.css';
+import color from '@/lib/modules/color.module.css';
 
 export default function PriceCard({
   name,
@@ -17,7 +19,7 @@ export default function PriceCard({
         setPriceInfo({
           name,
           pair,
-          ...priceInfo,
+          ...priceInfo.find(p => p.symbol === pair),
         });
       } catch (e) {
         console.error(e);
@@ -27,27 +29,30 @@ export default function PriceCard({
   }, [name, pair]);
 
   return (
-    <Card
-      data-cy="priceCard"
-      width={250}
-      key={pair}
-      title={name || ""}
-      subtitle={`$${priceInfo?.price || ""}`}
-      items={[
-        {
-          label: "Volume",
-          value: priceInfo?.volume?.toString() || "-",
-          color: "grey",
-        },
-        {
-          label: "Change",
-          value: priceInfo?.change?.toString() || "-",
-          color:
-            (priceInfo?.change || 0) < 0
-              ? "red"
-              : ((priceInfo?.change || 0) > 0 && "green") || "grey",
-        },
-      ]}
-    />
+    <div 
+      className={width.twoFifty}
+    >
+      <Card
+        data-cy="priceCard"
+        key={pair}
+        title={name || ""}
+        subtitle={`$${priceInfo?.price || ""}`}
+        items={[
+          {
+            label: "Volume",
+            value: priceInfo?.volume?.toString() || "-",
+            className: color.grey,
+          },
+          {
+            label: "Change",
+            value: priceInfo?.change?.toString() || "-",
+            className: 
+              (priceInfo?.change || 0) < 0
+                ? color.red
+                : ((priceInfo?.change || 0) > 0 && color.green) || color.grey,
+          },
+        ]}
+      />
+    </div>
   );
 }
