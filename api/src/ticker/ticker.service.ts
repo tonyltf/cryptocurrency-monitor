@@ -89,7 +89,8 @@ export class TickerService {
       ).filter((cached) => !!cached);
 
       const pairsToFetch = pairs.filter(
-        (pair) => !cachedResponse.map(({ symbol }) => symbol).includes(pair),
+        (pair) =>
+          !(cachedResponse?.map(({ symbol }) => symbol) || []).includes(pair),
       );
 
       const fetchResponse = pairsToFetch?.length
