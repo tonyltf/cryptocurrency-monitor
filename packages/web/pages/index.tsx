@@ -11,7 +11,7 @@ export default function Web(props: any) {
     <div>
       <h1>Cryptocurrency Realtime price</h1>
       {currencyList && (
-        <CardContiner className={flex.parent} data-cy="currencyList">
+        <CardContiner className={flex.parent} data-testid="currencyList">
           {Object.keys(currencyList).map((key) => (
             <Suspense key={key} fallback={<p>Loading price...</p>}>
               <PriceCard name={key} pair={currencyList[key]} />

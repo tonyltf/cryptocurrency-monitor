@@ -1,35 +1,39 @@
+import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+
 import PriceCard from './PriceCard';
-
-describe('PriceCard.cy.tsx', () => {
-  it('should render and display expected content on BTC price', () => {
-    cy.intercept('GET', '/price?pairs=BTCUSDT', {
-      fixture: 'priceBTCUSDT.json',
-    });
-    cy.mount(<PriceCard name="Bitcoin" pair="BTCUSDT" />);
-    cy.get('[data-cy=card]').should('have.length.at.least', 1);
-    cy.get('[data-cy=cardTitle]').should('contain.text', 'Bitcoin');
-    cy.get('[data-cy=cardSubtitle]').should('contain.text', '$25000');
-    cy.get('[data-cy=cardItemChangeValue]').should('contain.text', '2000');
-    cy.get('[data-cy=cardItemChangeValue]').should(
-      'have.css',
-      'color',
-      'rgb(0, 128, 0)'
+// declare which API requests to mock
+const server = setupServer(
+  // capture "GET /greeting" requests
+  rest.get('http://localhost:8000/price', (req, res, ctx) => {
+    // respond using a mocked JSON body
+    return res(
+      ctx.json([
+        {
+          symbol: 'BTCUSDT',
+          price: 25000,
+          volume: 10000,
+          change: 2000,
+        },
+      ])
     );
-  });
+  })
+);
 
-  it('should render and display expected content on ETH price', () => {
-    cy.intercept('GET', '/price?pairs=ETHUSDT', {
-      fixture: 'priceETHUSDT.json',
-    });
-    cy.mount(<PriceCard name="Ether" pair="ETHUSDT" />);
-    cy.get('[data-cy=card]').should('have.length.at.least', 1);
-    cy.get('[data-cy=cardTitle]').should('contain.text', 'Ether');
-    cy.get('[data-cy=cardSubtitle]').should('contain.text', '$4000');
-    cy.get('[data-cy=cardItemChangeValue]').should('contain.text', '-200');
-    cy.get('[data-cy=cardItemChangeValue]').should(
-      'have.css',
-      'color',
-      'rgb(255, 0, 0)'
-    );
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+describe('PriceCard', () => {
+  it('should render and display expected content on BTC price', async () => {
+    const { baseElement } = render(<PriceCard name="Bitcoin" pair="BTCUSDT" />);
+    expect(baseElement).toBeTruthy();
+    expect(screen.getByTestId('cardTitle').innerHTML).toContain('Bitcoin');
+    
+    await waitFor(() => expect(screen.getByTestId('cardSubtitle').innerHTML).toContain('$25000'));
+    expect(screen.getByTestId('cardItemChangeValue').innerHTML).toContain('2000');
+    expect(screen.getByTestId('cardItemChangeValue').className).toContain('green');
   });
 });

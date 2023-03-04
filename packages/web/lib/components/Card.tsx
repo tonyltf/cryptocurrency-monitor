@@ -25,11 +25,11 @@ export const Card = ({
   items: { label: string; value: string; className?: string }[];
 }) => {
   return (
-    <CardWrapper className={`${flex.child} ${card.cardWrapper}`} data-cy="card">
-      <CardTitle data-cy="cardTitle" className={card.cardTitle}>
+    <CardWrapper className={`${flex.child} ${card.cardWrapper}`} data-testid="card">
+      <CardTitle data-testid="cardTitle" className={card.cardTitle}>
         {title}
       </CardTitle>
-      <CardSubtitle data-cy="cardSubtitle" className={card.cardSubtitle}>
+      <CardSubtitle data-testid="cardSubtitle" className={card.cardSubtitle}>
         {subtitle}
       </CardSubtitle>
       <ItemContainer className={flex.parent}>
@@ -38,7 +38,7 @@ export const Card = ({
             <ItemWrapper key={label} className={flex.child}>
               <ItemLabel>{label} :</ItemLabel>
               <ItemValue
-                data-cy={`cardItem${label}Value`}
+                data-testid={`cardItem${label}Value`}
                 className={className}
               >
                 {value}

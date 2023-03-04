@@ -17,7 +17,7 @@ export class TickerService {
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
     private readonly cacheService: CacheService,
-    private readonly logger: LoggerService,
+    private readonly logger: LoggerService
   ) {
     this.apiPath = configService.get('API_PATH');
   }
@@ -37,7 +37,7 @@ export class TickerService {
   async cachePrice(
     pair,
     data: ITickerReponse,
-    ttl = this.configService.get('TICKER_SOURCE_TTL'),
+    ttl = this.configService.get('TICKER_SOURCE_TTL')
   ) {
     return this.cacheService.set(pair, Buffer.from(JSON.stringify(data)), ttl);
   }
@@ -89,7 +89,7 @@ export class TickerService {
 
       const pairsToFetch = pairs.filter(
         (pair) =>
-          !(cachedResponse?.map(({ symbol }) => symbol) || []).includes(pair),
+          !(cachedResponse?.map(({ symbol }) => symbol) || []).includes(pair)
       );
 
       const fetchResponse = pairsToFetch?.length

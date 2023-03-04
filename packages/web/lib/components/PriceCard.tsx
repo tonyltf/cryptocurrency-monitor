@@ -31,7 +31,7 @@ export default function PriceCard({
   return (
     <div className={width.twoFifty}>
       <Card
-        data-cy="priceCard"
+        data-testid="priceCard"
         key={pair}
         title={name || ''}
         subtitle={`$${priceInfo?.price || ''}`}

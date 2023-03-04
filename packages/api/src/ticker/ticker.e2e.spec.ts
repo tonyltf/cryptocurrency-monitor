@@ -28,8 +28,7 @@ describe('Ticker', () => {
       imports: [ConfigModule.forRoot(), HttpModule, CacheModule, LoggerModule],
       controllers: [AppController],
       providers: [AppService, TickerService],
-    })
-      .compile();
+    }).compile();
 
     app = moduleRef.createNestApplication();
     await app.init();

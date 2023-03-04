@@ -8,7 +8,7 @@ import { ITickerResult } from '../ticker/ticker.inteface';
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private readonly tickerService: TickerService,
+    private readonly tickerService: TickerService
   ) {}
 
   @Get()
@@ -23,7 +23,9 @@ export class AppController {
 
   @ApiQuery({ name: 'pairs', isArray: true })
   @Get('/price')
-  async getPrices(@Query('pairs') pairs: string | string[]): Promise<ITickerResult[]> {
+  async getPrices(
+    @Query('pairs') pairs: string | string[]
+  ): Promise<ITickerResult[]> {
     if (typeof pairs === 'string') {
       return this.tickerService.getPrices([pairs]);
     } else {
