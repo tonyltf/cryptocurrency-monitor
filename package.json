@@ -7,11 +7,14 @@
     "serve:api": "nx serve api",
     "test:api": "nx test api",
     "e2e:api": "nx e2e api-e2e",
+    "ci:api": "start-server-and-test serve:api http://localhost:8000 e2e:api",
+    "build:api": "nx build api",
     "lint:web": "nx lint web",
     "serve:web": "nx serve web",
     "test:web": "nx test web",
     "e2e:web": "nx e2e web-e2e",
-    "ci:web": "start-server-and-test serve:api http://localhost:8000 e2e:web"
+    "ci:web": "start-server-and-test serve:api http://localhost:8000 e2e:web",
+    "build:web": "nx build web"
   },
   "private": true,
   "devDependencies": {
