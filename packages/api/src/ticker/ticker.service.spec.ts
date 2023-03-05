@@ -2,15 +2,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TickerService } from './ticker.service';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
-import { CacheModule } from '../lib/cache/cache.module';
+// import { CacheModule } from '../lib/cache/cache.module';
 import { LoggerModule } from '../lib/logger/logger.module';
+import { CacheProvider } from '../app/app.module';
 
 describe('TickerService', () => {
   let service: TickerService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigModule.forRoot(), HttpModule, CacheModule, LoggerModule],
+      imports: [ConfigModule.forRoot(), HttpModule, CacheProvider, LoggerModule],
       providers: [TickerService],
     }).compile();
 
@@ -74,8 +75,9 @@ describe('TickerService', () => {
       lastId: 2861289434,
       count: 8564839,
     };
-    await service.cachePrice(pair, data);
+    const result = await service.cachePrice(pair, data);
+    console.log({ result });
     const cachedData = await service.getCachedPrice(pair);
-    expect(JSON.stringify(data)).toEqual(JSON.stringify(cachedData));
+    expect(JSON.stringify(cachedData)).toEqual(JSON.stringify(data));
   });
 });

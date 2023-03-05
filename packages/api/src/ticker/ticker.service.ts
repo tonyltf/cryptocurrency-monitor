@@ -1,12 +1,13 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, CACHE_MANAGER, Inject } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Cache } from 'cache-manager';
+
 import {
   ITickerReponse,
   ITickerResult,
   ICurrencyList,
 } from './ticker.inteface';
-import { CacheService } from '../lib/cache/cache.service';
-import { ConfigService } from '@nestjs/config';
 import { LoggerService } from '../lib/logger/logger.service';
 
 @Injectable()
@@ -16,7 +17,7 @@ export class TickerService {
   constructor(
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
-    private readonly cacheService: CacheService,
+    @Inject(CACHE_MANAGER) private cacheService: Cache,
     private readonly logger: LoggerService
   ) {
     this.apiPath = configService.get('API_PATH');
@@ -39,7 +40,12 @@ export class TickerService {
     data: ITickerReponse,
     ttl = this.configService.get('TICKER_SOURCE_TTL')
   ) {
-    return this.cacheService.set(pair, Buffer.from(JSON.stringify(data)), ttl);
+    try {
+    console.log(this.cacheService);
+    return this.cacheService.set(pair, JSON.stringify(data), ttl);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   transform(input: ITickerReponse[]): ITickerResult[] {
@@ -55,7 +61,7 @@ export class TickerService {
 
   async getCachedPrice(pair: string): Promise<ITickerReponse | null> {
     try {
-      const cached = await this.cacheService.get<Buffer>(pair);
+      const cached = await this.cacheService.get<object>(pair);
       if (!cached) {
         return null;
       }

@@ -14,7 +14,7 @@ COPY ./packages/api ./packages/api
 COPY package.json package-lock.json tsconfig.base.json ./
 
 # Install app dependencies
-RUN npm install --force
+RUN npm install
 
 # Creates a "dist" folder with the production build
 RUN npm run build:api
@@ -26,7 +26,7 @@ WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/package*.json /usr/src/app/.env* ./
 COPY --from=builder /usr/src/app/dist/packages/api ./dist
 
-RUN npm ci --force
+RUN npm ci
 
 # Running Image
 FROM node:18-alpine as running

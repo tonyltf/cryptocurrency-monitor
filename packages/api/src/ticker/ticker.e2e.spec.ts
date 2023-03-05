@@ -3,11 +3,12 @@ import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
-import { CacheModule } from '../lib/cache/cache.module';
+// import { CacheModule } from '../lib/cache/cache.module';
 import { LoggerModule } from '../lib/logger/logger.module';
 import { TickerService } from './ticker.service';
 import { AppController } from '../app/app.controller';
 import { AppService } from '../app/app.service';
+import { CacheProvider } from '../app/app.module';
 
 describe('Ticker', () => {
   let app: INestApplication;
@@ -25,7 +26,7 @@ describe('Ticker', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [ConfigModule.forRoot(), HttpModule, CacheModule, LoggerModule],
+      imports: [ConfigModule.forRoot(), HttpModule, CacheProvider, LoggerModule],
       controllers: [AppController],
       providers: [AppService, TickerService],
     }).compile();
