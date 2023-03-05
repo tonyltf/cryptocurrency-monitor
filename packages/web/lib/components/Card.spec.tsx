@@ -1,11 +1,13 @@
+import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { Card } from './Card';
 import color from '../modules/color.module.css';
 
 describe('Card', () => {
   it('should render a Card component', () => {
-    cy.mount(
+    const { baseElement } = render(
       <Card
-        key="BTCUSD"
+        key="BTCUSDT"
         title="Bitcoin"
         subtitle="$25000"
         items={[
@@ -22,5 +24,7 @@ describe('Card', () => {
         ]}
       />
     );
+    expect(baseElement).toBeTruthy();
+    expect(screen.getByTestId('card').innerHTML).toContain('Bitcoin');
   });
 });
