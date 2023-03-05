@@ -2,6 +2,8 @@ import { Suspense } from 'react';
 import styled from 'styled-components';
 import flex from '../lib/modules/flex.module.css';
 import PriceCard from '../lib/components/PriceCard';
+import path from 'path';
+path.resolve('./next.config.js');
 
 const CardContiner = styled.div``;
 
