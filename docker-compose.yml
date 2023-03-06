@@ -17,8 +17,8 @@ services:
       - "8000:8000"
     environment:
       - API_PATH=https://api.binance.com/api/v3/ticker
-      - TICKER_SOURCE_TTL=30
-      - REDIS_URL=redis:6379
+      - TICKER_SOURCE_TTL=30000
+      - REDIS_URL=redis://redis:6379
     networks:
       - app_network
   redis:

@@ -41,8 +41,7 @@ export class TickerService {
     ttl = this.configService.get('TICKER_SOURCE_TTL')
   ) {
     try {
-    console.log(this.cacheService);
-    return this.cacheService.set(pair, JSON.stringify(data), ttl);
+      return this.cacheService.set(pair, JSON.stringify(data), ttl);
     } catch (e) {
       console.error(e);
     }
@@ -61,11 +60,13 @@ export class TickerService {
 
   async getCachedPrice(pair: string): Promise<ITickerReponse | null> {
     try {
-      const cached = await this.cacheService.get<object>(pair);
+      const cached = await this.cacheService.get<string>(pair);
       if (!cached) {
+        this.logger.log(`Cache for ${pair} missed`);
         return null;
       }
-      return JSON.parse(cached.toString());
+      this.logger.log(`Cache ${pair} found`);
+      return JSON.parse(cached);
     } catch (e) {
       this.logger.error(e);
     }
@@ -76,11 +77,9 @@ export class TickerService {
       const apiPath = `${this.apiPath}?symbols=[${pairs
         .map((pair) => `"${pair}"`)
         .join(',')}]`;
-      this.logger.log({ apiPath });
       const response = (
         await this.httpService.axiosRef.get<ITickerReponse[]>(apiPath)
       ).data;
-      this.logger.log({ response });
       return response;
     } catch (e) {
       this.logger.error(e);
@@ -101,6 +100,7 @@ export class TickerService {
       const fetchResponse = pairsToFetch?.length
         ? await this.fetchPrices(pairsToFetch)
         : [];
+      await Promise.all(fetchResponse.map(data => this.cachePrice(data.symbol, data)));
       return this.transform([...cachedResponse, ...fetchResponse]);
     } catch (e) {
       this.logger.error(e);
